@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {ContactComponent} from './components';
 import * as contactAction from './actions/ContactAction';
 import { connect } from 'react-redux';
+import './App.css';
 
 class App extends Component {
 
@@ -21,22 +22,23 @@ class App extends Component {
   }
 
   handleGenderChange(event){
+    const value = event.target.value;
     this.setState(()=>({
-      gender: event.target.value
+      gender: value
     }))
-    console.log(event);
   }
 
   handleNameChange(event) {
+    const value = event.target.value;
     this.setState(() => ({
-      name: event.target.value
+      name: value
     }))
-    console.log(event);
   }
 
   handlePhoneChange(event) {
+    const value = event.target.value;
     this.setState(() => ({
-      phone: event.target.value
+      phone: value
     }))
   }
 
@@ -58,13 +60,13 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>
+      <div className = "Contact-App">
+        <h1 className = "Contact-App-Title">
           Contact App
         </h1>
-        <div>
+        <div className="Contact-Detail">
           <h3>
-            Add Contact
+            Contact Details
           </h3>
           <form onSubmit={this.handleSubmit}>
             <div>
@@ -72,21 +74,24 @@ class App extends Component {
               <input type="text" name="fname" placeholder="Enter Your Name Here" onChange={this.handleNameChange}/>
             </div>
             <div>
-              <select name="Gender">
-                <option onClick={this.handleGenderChange} value="F">F</option>
-                <option onClick={this.handleGenderChange} value="M">M</option>
+              <label>Gender: </label>
+              <select onChange={this.handleGenderChange} name="Gender">
+                <option key={1} value="F">F</option>
+                <option key={2} value="M">M</option>
               </select>
             </div>
             <div>
               <label>Phone Number: </label>
-              <input type="number"  name="phone" placeholder="Enter Your Phone Number Here" onChange={this.handlePhoneChange} />
+              <input type="number"  name="phone" placeholder="Phone Number Here" onChange={this.handlePhoneChange} />
             </div>
-            <input type="submit" value="ADD"/>
+            <button className = "Add-Contact-Button" type="submit" value="ADD">ADD CONTACT</button>
           </form>
         </div>
-        {
-          this.props.contacts.map((contact, index) => <ContactComponent person={contact} index={index} key={index}/>)
-        }
+        <div className="All-Contact-Detail">
+          {
+            this.props.contacts.map((contact, index) => <ContactComponent person={contact} index={index} key={index} />)
+          }
+        </div>
       </div>
     )
   }

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import female from '../../images/female.jpg';
 import male from '../../images/male.jpg'
 
-
 class ContactComponent extends Component {
 
     constructor(props){
@@ -20,21 +19,29 @@ class ContactComponent extends Component {
 
     render() {
         const {person, index} = this.props;
+
+        let cardColor = '';
+        if(person.gender === 'F'){
+            cardColor += "Female";
+        }
+        else{
+            cardColor += "Male";
+        }
         return (
-            <div>
+            <div className={cardColor}>
                 {person.gender === 'F'?(<img src={female} alt="Female Profile Here" />):(<img src={male} alt="Male Profile Here"/>)}
-                <div>
+                <div className="Person-Detail">
                     <div>
-                        <label>Name: </label>
+                        <label>Name</label>
                         <small>{person.name}</small>
                     </div>
                     <div>
-                        <label>Contact: </label>
+                        <label>Contact</label>
                         <small>{person.phone}</small>
                     </div>
                 </div>
                 <div>
-                    <button onClick={(event)=> this.removeContact(event, index)}>Remove</button>
+                    <button className="Remove-Contact" onClick={(event)=> this.removeContact(event, index)}>Remove</button>
                 </div>
             </div>
         )
